@@ -2,7 +2,7 @@ from flask import Flask, request
 import telebot
 import os
 
-TOKEN = os.getenv('TOKEN')
+TOKEN = os.getenv('TOKEN')  # Токен теперь берётся из Railway Variables
 OWNER_ID = 855863746
 
 bot = telebot.TeleBot(TOKEN)
@@ -14,7 +14,6 @@ user_cache = {}
 @app.route('/' + TOKEN, methods=['POST'])
 def webhook():
     json_str = request.get_data().decode('UTF-8')
-    print(json_str)  # Лог запроса от Telegram для отладки
     update = telebot.types.Update.de_json(json_str)
     bot.process_new_updates([update])
     return 'OK', 200
@@ -67,5 +66,5 @@ def home():
 
 if __name__ == '__main__':
     bot.remove_webhook()
-    bot.set_webhook(url='https://web-production-05d5.up.railway.app/' + TOKEN)
+    bot.set_webhook(url=os.getenv('WEBHOOK_URL') + TOKEN)
     app.run(host='0.0.0.0', port=5000)
