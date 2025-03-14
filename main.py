@@ -14,6 +14,7 @@ user_cache = {}
 @app.route('/' + TOKEN, methods=['POST'])
 def webhook():
     json_str = request.get_data().decode('UTF-8')
+    print(json_str)  # Лог запроса от Telegram для отладки
     update = telebot.types.Update.de_json(json_str)
     bot.process_new_updates([update])
     return 'OK', 200
