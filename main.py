@@ -66,5 +66,5 @@ def home():
 
 if __name__ == '__main__':
     bot.remove_webhook()
-    bot.set_webhook(url=os.getenv('WEBHOOK_URL') + TOKEN)
+    bot.set_webhook(url=os.getenv('https://web-production-05d5.up.railway.app/') + TOKEN)
     app.run(host='0.0.0.0', port=5000)
